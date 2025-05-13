@@ -1,0 +1,129 @@
+'''import time
+import matplotlib.pyplot as plt
+import random
+
+def insertion_sort(a): 
+    n = len(a)
+    for j in range(1, n):
+        key = a[j]
+        i = j - 1
+        while i >= 0 and a[i] > key:
+            a[i + 1] = a[i]
+            i -= 1
+        a[i + 1] = key
+    return a
+
+def create_random_data(size):
+    """Creates a list of random numbers of given size."""
+    return [random.randint(1, 10000) for _ in range(size)]
+
+def plot_insertion_sort_performance(input_sizes, num_trials=3):
+    execution_times = []
+
+    for size in input_sizes:
+        total_time = 0
+        for _ in range(num_trials):
+            data = create_random_data(size)
+            start_time = time.time()
+            insertion_sort(data.copy())  # Use copy to avoid in-place modifications affecting subsequent trials
+            end_time = time.time()
+            total_time += (end_time - start_time)
+        avg_time = total_time / num_trials
+        execution_times.append(avg_time)
+
+    plt.plot(input_sizes, execution_times, marker='o')
+    plt.xlabel('Input Size')
+    plt.ylabel('Execution Time (seconds)')
+    plt.title('Insertion Sort Performance')
+    plt.grid(True)
+    plt.show()
+
+# Example usage
+if __name__ == "__main__":
+    input_sizes = [100, 200, 400, 800, 1600, 3200]
+    print("Benchmarking insertion sort with different input sizes...")
+    plot_insertion_sort_performance(input_sizes)'''
+
+'''
+import time
+import random
+import matplotlib.pyplot as plt
+
+# Merge sort implementation
+def merge_sort(a):
+    if len(a) <= 1:
+        return a
+
+    mid = len(a) // 2
+    left_half = merge_sort(a[:mid])
+    right_half = merge_sort(a[mid:])
+    return merge(left_half, right_half)
+
+def merge(left, right):
+    merged = []
+    left_index = right_index = 0
+
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] < right[right_index]:
+            merged.append(left[left_index])
+            left_index += 1
+        else:
+            merged.append(right[right_index])
+            right_index += 1
+
+    merged.extend(left[left_index:])
+    merged.extend(right[right_index:])
+    return merged
+
+# Measure execution time for increasing input sizes
+input_sizes = [100, 200, 400, 800, 1600, 3200, 6400]
+execution_times = []
+
+for size in input_sizes:
+    test_data = [random.randint(0, 10000) for _ in range(size)]
+    start_time = time.time()
+    merge_sort(test_data)
+    end_time = time.time()
+    execution_times.append(end_time - start_time)
+
+# Plotting
+plt.figure(figsize=(10, 6))
+plt.plot(input_sizes, execution_times, marker='o', linestyle='-', color='blue')
+plt.title('Merge Sort Execution Time vs Input Size')
+plt.xlabel('Input Size')
+plt.ylabel('Execution Time (seconds)')
+plt.grid(True)
+plt.show()
+'''
+import time
+import random
+import matplotlib.pyplot as plt
+
+# Quick sort implementation
+def quick_sort(a):
+    if len(a) <= 1:
+        return a
+    pivot = a[0]
+    less = [x for x in a[1:] if x <= pivot]
+    greater = [x for x in a[1:] if x > pivot]
+    return quick_sort(less) + [pivot] + quick_sort(greater)
+
+# Measure execution time for increasing input sizes
+input_sizes = [100, 200, 400, 800, 1600, 3200, 6400]
+execution_times = []
+
+for size in input_sizes:
+    test_data = [random.randint(0, 10000) for _ in range(size)]
+    start_time = time.time()
+    quick_sort(test_data)
+    end_time = time.time()
+    execution_times.append(end_time - start_time)
+
+# Plotting
+plt.figure(figsize=(10, 6))
+plt.plot(input_sizes, execution_times, marker='o', linestyle='-', color='green')
+plt.title('Quick Sort Execution Time vs Input Size')
+plt.xlabel('Input Size')
+plt.ylabel('Execution Time (seconds)')
+plt.grid(True)
+plt.show()

@@ -1,0 +1,99 @@
+'''def binary_search(arr, val, start, end):
+    while start < end:
+        mid = (start + end) // 2
+        if arr[mid] < val:
+            start = mid + 1
+        else:
+            end = mid
+    return start
+
+def optimized_insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        # Find insertion position in the sorted part of array
+        pos = binary_search(arr, key, 0, i)
+        # Shift elements to make room for key
+        j = i
+        while j > pos:
+            arr[j] = arr[j - 1]
+            j -= 1
+        arr[pos] = key
+    return arr
+
+# Example
+a = [6, 3, 1, 9, 22, 66]
+print("optimized insertion sort:",optimized_insertion_sort(a))  
+'''
+
+'''def merge_sort_in_place(a, left=0, right=None):
+    if right is None:
+        right = len(a)
+
+    if right - left > 1:
+        mid = (left + right) // 2
+        merge_sort_in_place(a, left, mid)
+        merge_sort_in_place(a, mid, right)
+        merge_in_place(a, left, mid, right)
+
+def merge_in_place(a, left, mid, right):
+    left_part = a[left:mid]
+    right_part = a[mid:right]
+
+    i = j = 0
+    k = left
+
+    while i < len(left_part) and j < len(right_part):
+        if left_part[i] <= right_part[j]:
+            a[k] = left_part[i]
+            i += 1
+        else:
+            a[k] = right_part[j]
+            j += 1
+        k += 1
+
+    # Copy any remaining elements
+    while i < len(left_part):
+        a[k] = left_part[i]
+        i += 1
+        k += 1
+
+    while j < len(right_part):
+        a[k] = right_part[j]
+        j += 1
+        k += 1
+
+# Example 
+a = [38, 27, 43, 3, 9, 82, 10]
+merge_sort_in_place(a)
+print("In-place sorted array:", a)
+'''
+def median_of_three(a, low, high):
+    mid = (low + high) // 2
+    pivot_candidates = [(a[low], low), (a[mid], mid), (a[high], high)]
+    pivot_candidates.sort()
+    return pivot_candidates[1][1]  # Return the index of the median value
+
+def partition(a, low, high):
+    pivot_index = median_of_three(a, low, high)
+    a[low], a[pivot_index] = a[pivot_index], a[low]  # Swap pivot to front
+    pivot = a[low]
+    i = low + 1
+    for j in range(low + 1, high + 1):
+        if a[j] < pivot:
+            a[i], a[j] = a[j], a[i]
+            i += 1
+    a[low], a[i - 1] = a[i - 1], a[low]
+    return i - 1
+
+def optimized_quick_sort(a, low, high):
+    if low < high:
+        pivot_index = partition(a, low, high)
+        optimized_quick_sort(a, low, pivot_index - 1)
+        optimized_quick_sort(a, pivot_index + 1, high)
+
+# Example
+a = [3, 9, 1, 7, 6, 13, 34]
+print("Optimizied Quick Sort") 
+print("Input:", a)
+optimized_quick_sort(a, 0, len(a) - 1)
+print("Sorted Output:", a)
